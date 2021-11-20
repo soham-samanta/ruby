@@ -6,4 +6,4 @@ AllCops:
   CacheRootDirectory: tmp/rubocop
 
 Rails:
-  Enabled: false
+  Enabled: true
