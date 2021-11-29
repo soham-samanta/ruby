@@ -43,15 +43,28 @@ translation = FactoryGirl.create(
 )
 ```
 
-```ruby
+
+
+These code snippets are very much more readable than the alternative:
+
+ruby
+scope = Translation::Phrase.includes(:phrase_translations).joins(:phrase_screenshots).where(:phrase_screenshots => { :controller => controller_name, :action => JAROMIR_JAGR_SALUTE })
+
+translation = FactoryGirl.create(:phrase_translation, :locale => :is, :phrase => phrase, :key => 'phone_number_not_revealed_time_zone', :value => 'Símanúmerið þitt verður ekki birt. Það er aðeins hægt að hringja á milli 9:00 og 21:00 %{time_zone}.')
+
+if @reservation_alteration.checkin == @reservation.start_date && @reservation_alteration.checkout == (@reservation.start_date + @reservation.nights)
+  redirect_to_alteration @reservation_alteration
+end
+
+ruby
 if @reservation_alteration.checkin == @reservation.start_date &&
    @reservation_alteration.checkout == (@reservation.start_date + @reservation.nights)
 
   redirect_to_alteration @reservation_alteration
 end
-```
 
-```erb
+
+erb
 <% if @presenter.guest_visa_russia? %>
   <%= icon_tile_for(I18n.t("email.reservation_confirmed_guest.visa.details_header",
                            :default => "Visa for foreign Travelers"),
@@ -60,19 +73,8 @@ end
                :default => "Foreign guests travelling to Russia may need to obtain a visa...") %>
   <% end %>
 <% end %>
-```
 
-These code snippets are very much more readable than the alternative:
 
-```ruby
-scope = Translation::Phrase.includes(:phrase_translations).joins(:phrase_screenshots).where(:phrase_screenshots => { :controller => controller_name, :action => JAROMIR_JAGR_SALUTE })
-
-translation = FactoryGirl.create(:phrase_translation, :locale => :is, :phrase => phrase, :key => 'phone_number_not_revealed_time_zone', :value => 'Símanúmerið þitt verður ekki birt. Það er aðeins hægt að hringja á milli 9:00 og 21:00 %{time_zone}.')
-
-if @reservation_alteration.checkin == @reservation.start_date && @reservation_alteration.checkout == (@reservation.start_date + @reservation.nights)
-  redirect_to_alteration @reservation_alteration
-end
-```
 
 ```erb
 <% if @presenter.guest_visa_russia? %>
